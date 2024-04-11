@@ -1,0 +1,352 @@
+EX 1
+
+STEP 1
+
+
+public class Appearance {
+    String hairColor;
+    String eyeColor;
+    String height;
+    String weight;
+
+    public Appearance(String hairColor, String eyeColor, String height, String weight) {
+        this.hairColor = hairColor;
+        this.eyeColor = eyeColor;
+        this.height = height;
+        this.weight = weight;
+    }
+}
+
+public class Ability {
+    String name;
+    String description;
+    int power;
+
+    public Ability(String name, String description, int power) {
+        this.name = name;
+        this.description = description;
+        this.power = power;
+    }
+}
+
+public class Equipment {
+    String name;
+    String type;
+    Attributes attributes;
+
+    public Equipment(String name, String type, Attributes attributes) {
+        this.name = name;
+        this.type = type;
+        this.attributes = attributes;
+    }
+}
+
+public class Attributes {
+    int strength;
+    int agility;
+    int intelligence;
+
+    public Attributes(int strength, int agility, int intelligence) {
+        this.strength = strength;
+        this.agility = agility;
+        this.intelligence = intelligence;
+    }
+}
+
+public class Character {
+    String name;
+    Appearance appearance;
+    List<Ability> abilities;
+    List<Equipment> equipment;
+    Attributes attributes;
+
+    public Character(String name, Appearance appearance, List<Ability> abilities, List<Equipment> equipment, Attributes attributes) {
+        this.name = name;
+        this.appearance = appearance;
+        this.abilities = abilities;
+        this.equipment = equipment;
+        this.attributes = attributes;
+    }
+}
+
+
+
+STEP 2
+
+
+
+public abstract class CharacterFactory {
+    public abstract Character createCharacter(String name);
+}
+
+
+
+STEP 3
+
+
+
+
+public class WarriorFactory extends CharacterFactory {
+    @Override
+    public Character createCharacter(String name) {
+        Appearance appearance = new Appearance("Brown", "Blue", "Tall", "Muscular");
+        List<Ability> abilities = Arrays.asList(new Ability("Slash", "A powerful sword attack", 75));
+        List<Equipment> equipment = Arrays.asList(new Equipment("Sword", "Weapon", new Attributes(10, 0, 0)));
+        Attributes attributes = new Attributes(10, 5, 2);
+        return new Character(name, appearance, abilities, equipment, attributes);
+    }
+}
+
+public class MageFactory extends CharacterFactory {
+    @Override
+    public Character createCharacter(String name) {
+        Appearance appearance = new Appearance("White", "Green", "Average", "Slim");
+        List<Ability> abilities = Arrays.asList(new Ability("Fireball", "A fiery explosive spell", 80));
+        List<Equipment> equipment = Arrays.asList(new Equipment("Staff", "Weapon", new Attributes(0, 0, 12)));
+        Attributes attributes = new Attributes(2, 5, 10);
+        return new Character(name, appearance, abilities, equipment, attributes);
+    }
+}
+
+public class ArcherFactory extends CharacterFactory {
+    @Override
+    public Character createCharacter(String name) {
+        Appearance appearance = new Appearance("Blonde", "Brown", "Tall", "Lean");
+        List<Ability> abilities = Arrays.asList(new Ability("Piercing Arrow", "A long-range arrow attack", 70));
+        List<Equipment> equipment = Arrays.asList(new Equipment("Bow", "Weapon", new Attributes(8, 5, 0)));
+        Attributes attributes = new Attributes(5, 10, 4);
+        return new Character(name, appearance, abilities, equipment, attributes);
+    }
+}
+
+
+
+
+
+
+
+EX 2
+
+
+STEP 1
+
+public class Data {
+    private String type;
+    private Object content;
+
+    public Data(String type, Object content) {
+        this.type = type;
+        this.content = content;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Object getContent() {
+        return content;
+    }
+}
+
+
+STEP 2
+
+
+public abstract class DataProcessor {
+    public abstract void process(Data data);
+}
+
+
+
+STEP 3
+
+public class TextDataProcessor extends DataProcessor {
+    @Override
+    public void process(Data data) {
+        System.out.println("Processing text data: " + data.getContent());
+    }
+}
+
+public class AudioDataProcessor extends DataProcessor {
+    @Override
+    public void process(Data data) {
+        System.out.println("Processing audio data: " + data.getContent());
+    }
+}
+
+public class VideoDataProcessor extends DataProcessor {
+    @Override
+    public void process(Data data) {
+        System.out.println("Processing video data: " + data.getContent());
+    }
+}
+
+
+
+EX 3 
+
+STEP 1
+
+public abstract class Furniture {
+    protected String name;
+    protected String style;
+    protected String material;
+    protected float price;
+
+    public Furniture(String name, String style, String material, float price) {
+        this.name = name;
+        this.style = style;
+        this.material = material;
+        this.price = price;
+    }
+
+    
+    public String getName() { return name; }
+    public String getStyle() { return style; }
+    public String getMaterial() { return material; }
+    public float getPrice() { return price; }
+    
+    @Override
+    public String toString() {
+        return String.format("%s: Style = %s, Material = %s, Price = %.2f", name, style, material, price);
+    }
+}
+
+
+STEP 2
+
+public abstract class FurnitureFactory {
+    public abstract Furniture createChair();
+    public abstract Furniture createTable();
+    public abstract Furniture createSofa();
+}
+
+
+STEP 3
+
+public class ModernWoodFactory extends FurnitureFactory {
+    public Furniture createChair() {
+        return new Chair("Modern Wood Chair", "Modern", "Wood", 100.0f);
+    }
+
+    public Furniture createTable() {
+        return new Table("Modern Wood Table", "Modern", "Wood", 250.0f);
+    }
+
+    public Furniture createSofa() {
+        return new Sofa("Modern Wood Sofa", "Modern", "Wood", 500.0f);
+    }
+}
+
+
+STEP 4
+
+public class Chair extends Furniture {
+    public Chair(String name, String style, String material, float price) {
+        super(name, style, material, price);
+    }
+}
+
+public class Table extends Furniture {
+    public Table(String name, String style, String material, float price) {
+        super(name, style, material, price);
+    }
+}
+
+public class Sofa extends Furniture {
+    public Sofa(String name, String style, String material, float price) {
+        super(name, style, material, price);
+    }
+}
+
+
+
+STEP 5
+
+public class FurnitureCreator {
+    private FurnitureFactory factory;
+
+    public void setFactory(FurnitureFactory factory) {
+        this.factory = factory;
+    }
+
+    public Furniture createChair() {
+        return factory.createChair();
+    }
+
+    public Furniture createTable() {
+        return factory.createTable();
+    }
+
+    public Furniture createSofa() {
+        return factory.createSofa();
+    }
+}
+
+
+EX 4
+
+STEP 1
+
+
+public class Character {
+    private String name;
+    private String characterClass;
+    private Weapon weapon;
+    private int health;
+    private int mana;
+
+    public Character(String name, String characterClass, Weapon weapon, int health, int mana) {
+        this.name = name;
+        this.characterClass = characterClass;
+        this.weapon = weapon;
+        this.health = health;
+        this.mana = mana;
+    }
+
+   
+}
+
+public class Weapon {
+    private String type;
+    private int damage;
+    private int speed;
+    private int range;
+
+    public Weapon(String type, int damage, int speed, int range) {
+        this.type = type;
+        this.damage = damage;
+        this.speed = speed;
+        this.range = range;
+    }
+
+   
+}
+
+
+STEP 2
+
+
+public abstract class CharacterFactory {
+    public abstract Character createCharacter(String name);
+    public abstract Weapon createWeapon();
+}
+
+
+
+
+
+STEP 3
+
+public class WarriorSwordFactory extends CharacterFactory {
+    @Override
+    public Character createCharacter(String name) {
+        Weapon weapon = createWeapon();
+        return new Character(name, "Warrior", weapon, 100, 50);
+    }
+
+    @Override
+    public Weapon createWeapon() {
+        return new Weapon("Sword", 10, 5, 1);
+    }
+}
